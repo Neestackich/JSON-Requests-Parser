@@ -1,2 +1,2 @@
 # json-requests
-display JSON-data in tableView
+display JSON-data in tableView iOS application
