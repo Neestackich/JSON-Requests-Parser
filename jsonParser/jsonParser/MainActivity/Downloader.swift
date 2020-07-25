@@ -9,19 +9,24 @@
 import UIKit
 
 class Downloader: NSObject {
-    let jsonDecoder = JSONDecoder()
+    var jsonDecoder: JSONDecoder!;
+    var parsedJSON: Entry!
     
-    func download() {
+    func download() -> Entry {
         if let url = URL(string: "https://jsonplaceholder.typicode.com/todos/1") {
             URLSession.shared.dataTask(with: url) { data, response, error in
                 if let data = data {
+                    self.jsonDecoder  = JSONDecoder();
+                    
                     do {
-                        let parsedJSON = try self.jsonDecoder.decode(Entry.self, from: data)
+                        self.parsedJSON = try self.jsonDecoder.decode(Entry.self, from: data)
                     } catch {
-                        
+                        return self.parsedJSON = Entry();
                     }
                 }
-            }.resume()
+            }.resume();
         }
+        
+        return parsedJSON;
     }
 }
